@@ -14,7 +14,7 @@ class MarkdownWrapper extends React.Component {
     const post = route.page.data
 
     return (
-      <DocumentTitle title={`${post.title} | ${config.blogTitle}`}>
+      <DocumentTitle title={`${post.title} | ${config.authorName}`}>
         <div className="markdown">
           <h1>{post.title}</h1>
           <div dangerouslySetInnerHTML={{ __html: post.body }} />
