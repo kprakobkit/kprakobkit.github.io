@@ -11,7 +11,7 @@ class Bio extends React.Component {
           marginBottom: rhythm(2.5),
         }}
       >
-      I'm a software developer at <a href="https://www.thoughtworks.com" target="_blank">ThoughtWorks</a>, and these are my stories.
+      I'm a software developer for <a href="https://www.thoughtworks.com" target="_blank">ThoughtWorks</a>, and these are my stories.
       </p>
     )
   }
