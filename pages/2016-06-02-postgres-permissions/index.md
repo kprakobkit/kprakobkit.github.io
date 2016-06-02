@@ -3,6 +3,7 @@ title: PostgreSQL Permissions - Database and Table
 date: "2016-06-02"
 layout: post
 path: "/postgresql-permissions/"
+publish: true
 ---
 
 Today I learned that there's granting permissions to a **database** and to a **table** for a user in PostgreSQL. I've been banging my head for about a week on an issue where a user didn't have the appropriate rights and stumbled upon [this](http://stackoverflow.com/questions/15520361/permission-denied-for-relation), which did it for me.
