@@ -1,10 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 import DocumentTitle from 'react-document-title'
-import ReadNext from '../components/ReadNext'
 import { rhythm } from 'utils/typography'
 import { config } from 'config'
-import Bio from 'components/Bio'
 
 import '../css/zenburn.css'
 
@@ -21,7 +19,7 @@ class MarkdownWrapper extends React.Component {
           <em
             style={{
               display: 'block',
-              marginBottom: rhythm(2)
+              marginBottom: rhythm(2),
             }}
           >
             Posted {moment(post.date).format('MMMM D, YYYY')}
