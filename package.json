@@ -43,6 +43,7 @@
   },
   "scripts": {
     "dev": "gatsby develop",
+    "deploy": "gatsby build && cd public && git commit -am 'Publishing' && git push",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
