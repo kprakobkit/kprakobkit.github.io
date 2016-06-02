@@ -8,10 +8,10 @@ class Bio extends React.Component {
     return (
       <p
         style={{
-          marginBottom: rhythm(2.5),
+          marginBottom: rhythm(1.75)
         }}
       >
-      I'm a software developer for <a href="https://www.thoughtworks.com" target="_blank">ThoughtWorks</a>, and these are my stories.
+      I'm a software developer for <a href="https://www.thoughtworks.com" target="_blank">ThoughtWorks</a>. I wrote these posts to share my learning and to <a href="https://www.urbandictionary.com/define.php?term=pay%20it%20forward" target="_blank">pay it forward</a>.
       </p>
     )
   }

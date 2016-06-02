@@ -21,7 +21,7 @@ class MarkdownWrapper extends React.Component {
           <em
             style={{
               display: 'block',
-              marginBottom: rhythm(2),
+              marginBottom: rhythm(2)
             }}
           >
             Posted {moment(post.date).format('MMMM D, YYYY')}
