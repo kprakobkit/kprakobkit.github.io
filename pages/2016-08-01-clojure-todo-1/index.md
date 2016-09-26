@@ -6,7 +6,7 @@ path: "/clojure-todo-1/"
 publish: true
 ---
 
-This is the first of a two part blog posts on an overview of my Clojure Todo App.
+This is the first of a two part walktrhough of my Clojure Todo App.
 
 Over the last few months I’ve been working on creating a full stack todo app using the Clojure stack - ClojureScript, Clojure, and Postgres. I also explored multiple options for hosting this app, which I will write about in a separate blog post. It’s been a great learning experiencing building and deploying the app from scratch. I’m documenting the experience here to solidify my learning, as well as pay it forward.
 
@@ -14,7 +14,7 @@ This blog post is divided into sections that correspond to each part of the stac
 
 Note: The source code is available [here](https://github.com/kprakobkit/todo-clj).
 
-The Server
+## The Server
 
 The server is responsible for handling incoming http requests and interacting with the database, through a model, which I’ll cover shortly. I’m using Ring and Compojure, which seems to be the standard for the Clojure stack. Ring is an abstraction over the HTTP server and is comparable to Ruby’s Rack. Compojure is the routing library for Ring.
 
@@ -43,7 +43,7 @@ The http-handler is a composition of ‘middleware’ wrappers, ring or custom, 
 
 Now let’s take a look at the routes. Compojure’s defroutes function is responsible for creating all the route handlers and looks fairly straight forward. In this implementation, each route interacts with a different method on the model - create,all,find-by-id, delete-all, etc.
 
-As a side note, I followed the todo-backend spec when I was creating this portion of the todo app. The site is awesome and even has a test suite that you can run against.
+As a side note, I followed the [todo-backend spec](http://www.todobackend.com/) when I was creating this portion of the todo app. The site is awesome and even has a test suite that you can run against.
 
 ```clojure
 (defroutes routes
@@ -77,7 +77,7 @@ As a side note, I followed the todo-backend spec when I was creating this portio
 
 That concludes the server, let’s now look at the model.
 
-The Model
+## The Model
 
 The model here is simply an abstraction on top of the data persistent layer, which is PostgreSQL. It’s interface includes create, all, find-by-id, delete-all, delete, and update-todo. I’m using clojure.java.jdbc, which is just a Cojure wrapper for JDBC-based access to the database.
 
