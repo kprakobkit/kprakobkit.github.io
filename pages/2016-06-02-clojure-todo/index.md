@@ -12,7 +12,7 @@ Over the last few months I’ve been working on creating a full stack todo app u
 
 This blog post is divided into sections that correspond to each part of the stack (front-end, server, backend). Let’s first start at the meat of this, which is the server and the database, written in Clojure.
 
-Note: The source code is available here.
+Note: The source code is available [here](https://github.com/kprakobkit/todo-clj).
 
 The Server
 
