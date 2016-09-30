@@ -6,13 +6,13 @@ path: "/clojure-todo-2/"
 publish: true
 ---
 
-This is the second part of a two-part walkthrough of a todo app that I build in clojure. The first part covers the backend portion of the app - server and database. I will be covering the front-end, ClojureScript, portion of the app. Let's get started!
+This is the second part of a two-part walkthrough of a todo app that I build in Clojure. The first part covers the backend portion of the app - server and database. I will be covering the front-end, ClojureScript, portion of the app. Let's get started!
 
 Note: The source code is available [here](https://github.com/kprakobkit/todo-clj).
 
-I'm using [Om](https://github.com/omcljs/om), which is a ClojureScript interface to Facebook's React. It's written by David Nolen, and it's awesome. An alternative to this is [Reagen](https://reagent-project.github.io/). David Nolen has written some very good documentation around this library as well, and most of what you'll see here is taken from his tutorials.
+I'm using [Om](https://github.com/omcljs/om), which is a ClojureScript interface to Facebook's React. It's written by David Nolen, and it's awesome. An alternative to this is [Reagent](https://reagent-project.github.io/). David Nolen has written some very good documentation around this library as well, and most of what you'll see here is taken from his [tutorials](https://github.com/omcljs/om/wiki).
 
-The front-end portion is essentially a separate client-side app that interacts with a todo-api, which is the server. The entry point is in the core.cljs file, where the intial app state is defined, and the main app component.
+The front-end portion is essentially a separate client-side app that interacts with a todo-api, which is the server. The entry point is in core.cljs, where the intial app state and the main app component are defined.
 
 ```clojure
 (defonce app-state (atom {:todos []}))
@@ -92,7 +92,7 @@ The app component is also responsible for rendering a todo component for each to
                                :onClick #(remove-todo todo (fn [_] (put! delete @todo)))} "x")))))
 ```
 
-Each todo is responsible for rendering the details for each todo. Also take note that each todo receives the update and delete channels. One interesting functionality in the todo-component is that double clicking on the title changes the text field (span) into an input field. This is controlled by the value of `:editing` in the component's state. This is also very cool! The `onClick` handlers for the checkbox and delete buttons puts values on the update and delete channels, respectively.
+Each todo is responsible for rendering the details for each todo. Also take note that each todo receives the update and delete channels. One interesting functionality in the todo-component is that double clicking on the title changes the text field (span) into an input field. This is controlled by the value of `:editing` in the component's state. This is also very cool! The `onClick` handlers for the checkbox and delete buttons put values on the update and delete channels, respectively.
 
 I've also abstracted all the interactions with the api, our server, into the actions.cljs file.
 
@@ -129,3 +129,6 @@ I've also abstracted all the interactions with the api, our server, into the act
 ```
 
 Here, I'm using the [cljs-ajax library](https://github.com/JulianBirch/cljs-ajax), which is a neat wrapper for making ajax calls.
+
+
+That completes a tour of the front-end portion of this app. I will cover setting up a CI environment from scratch in the next blog post. Thanks for reading!
