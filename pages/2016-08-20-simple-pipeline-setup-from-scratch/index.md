@@ -1,5 +1,5 @@
 ---
-title: Simple Pipeline Setup from Scrath
+title: Simple Pipeline Setup from Scratch
 date: "2016-08-20"
 layout: post
 path: "/simple-pipeline-setup-from-scratch/"
