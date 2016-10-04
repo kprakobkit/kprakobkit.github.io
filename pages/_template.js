@@ -49,7 +49,7 @@ class Template extends React.Component {
     return (
       <Container
         style={{
-          maxWidth: rhythm(24),
+          maxWidth: rhythm(40),
           padding: `${rhythm(2)} ${rhythm(1/2)}`,
         }}
       >
