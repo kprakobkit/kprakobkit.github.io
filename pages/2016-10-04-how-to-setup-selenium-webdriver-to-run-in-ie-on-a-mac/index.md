@@ -67,3 +67,5 @@ driver.findElement(By.name('btnG')).click();
 driver.wait(until.titleIs('webdriver - Google Search'), 1000);
 driver.quit();
 ```
+
+Hope you found this helpful! If you have any questions, feedback, or have a different setup, I'd be interested to [hear](mailto:kprakobkit@gmail.com) from you.
