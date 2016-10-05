@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+ <html lang="en"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=5.0"/><title>How to Setup Selenium WebDriver to run in IE on a Mac</title><style id="typography.js">/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+html {
+  box-sizing: border-box;
+  font-size: 112.5%;
+  line-height: 1.5em;
+  overflow-y: scroll;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: hsl(0,0%,20%);
+  font-family: georgia, serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+/* Make image responsive by default */
+img {
+  max-width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6,hgroup,ul,ol,dl,dd,p,figure,pre,table,fieldset,blockquote,form,noscript,iframe,img,hr {
+margin: 0;
+margin-bottom: 1.5rem;
+padding: 0;
+}
+
+blockquote {
+margin: 1.5rem 3.75rem;
+}
+
+b,strong {
+font-weight: 700
+}
+
+hr {
+background: hsl(0,0%,80%);
+border: none;
+height: 1px;
+margin-bottom: calc(1.5rem - 1px);
+}
+
+ol,ul {
+list-style-position: outside;
+margin-left: 1.5rem;
+}
+
+ul li,ol li {
+padding-left: 0;
+}
+
+code,kbd,pre,samp {
+font-size: 0.85rem;
+line-height: 1.5rem;
+}
+
+table {
+font-size: 1rem;
+line-height: 2.25rem;
+width: 100%;
+}
+
+thead {
+text-align: left;
+}
+
+h1,h2,h3,h4,h5,h6 {
+color: hsl(0,0%,20%);
+font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+font-weight: 700;
+}
+
+h1 {
+font-size: 1.728rem;
+line-height: 2.25rem;
+}
+
+h2 {
+font-size: 1.44rem;
+line-height: 2.25rem;
+}
+
+h3 {
+font-size: 1.2rem;
+line-height: 1.5rem;
+}
+
+h4 {
+font-size: 1.12924rem;
+line-height: 1.5rem;
+}
+
+h5 {
+font-size: 1.06266rem;
+line-height: 1.5rem;
+}
+
+h6 {
+font-size: 1rem;
+line-height: 1.5rem;
+}
+
+
+</style><style>body{color:#424242}h1,h2,h3,h4,h5,h6{color:#2c2c2c}a{color:#2a5dad;text-decoration:none}a:hover{text-decoration:underline}blockquote{padding-left:16.875px;border-left:6px solid #d3d3d3;margin-left:10.875px;margin-right:0;padding-right:0}.markdown pre{display:block;background:#3f3f3f;color:#dcdcdc;overflow-y:hidden}.markdown pre code{background:none;border:none;border-radius:3px;display:inline-block;overflow:inherit;padding:1.58333rem;white-space:inherit;word-wrap:normal}code{border-radius:3px;white-space:pre;white-space:pre-wrap;white-space:pre-line;white-space:-pre-wrap;white-space:-o-pre-wrap;white-space:-moz-pre-wrap;white-space:-hp-pre-wrap;word-wrap:break-word;background:#e5e5e5;border:1px solid #ccc;display:inline;font-family:Inconsolata,monospace,serif;max-width:100%;overflow:auto;padding:0 .1625rem}.clojure .hljs-attribute,.css .hljs-class,.css .hljs-id,.hljs-keyword,.hljs-request,.hljs-status,.hljs-tag,.lisp .hljs-title,.nginx .hljs-title{color:#e3ceab}.django .hljs-filter .hljs-argument,.django .hljs-template_tag,.django .hljs-variable{color:#dcdcdc}.hljs-date,.hljs-number{color:#8cd0d3}.apache .hljs-sqbracket,.dos .hljs-envvar,.dos .hljs-stream,.hljs-variable{color:#efdcbc}.diff .hljs-change,.dos .hljs-flow,.hljs-literal,.python .exception,.python .hljs-built_in,.tex .hljs-special{color:#efefaf}.diff .hljs-chunk,.hljs-subst{color:#8f8f8f}.apache .hljs-tag,.diff .hljs-header,.dos .hljs-keyword,.haskell .hljs-type,.hljs-prompt,.hljs-title,.nginx .hljs-built_in,.python .hljs-decorator,.ruby .hljs-class .hljs-parent,.tex .hljs-command{color:#efef8f}.dos .hljs-winutils,.ruby .hljs-string,.ruby .hljs-symbol,.ruby .hljs-symbol .hljs-string{color:#dca3a3}.apache .hljs-cbracket,.coffeescript .hljs-attribute,.css .hljs-rules .hljs-value,.diff .hljs-deletion,.hljs-attr_selector,.hljs-built_in,.hljs-javadoc,.hljs-pragma,.hljs-preprocessor,.hljs-pseudo,.hljs-string,.hljs-tag .hljs-value,.smalltalk .hljs-array,.smalltalk .hljs-class,.smalltalk .hljs-localvars,.sql .hljs-aggregate,.tex .hljs-formula{color:#cc9393}.diff .hljs-addition,.hljs-comment,.hljs-doctype,.hljs-pi,.hljs-shebang,.hljs-template_comment,.java .hljs-annotation{color:#7f9f7f}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .css,.xml .hljs-cdata,.xml .javascript,.xml .vbscript{opacity:.5}</style></head><body class="landing-page"><div id="react-mount"><div style="max-width:60rem;margin-left:auto;margin-right:auto;padding:3rem 0.75rem;"><h3><a style="text-decoration:none;color:inherit;" href="/">Peter Prakobkit</a></h3><div class="markdown"><h1>How to Setup Selenium WebDriver to run in IE on a Mac</h1><div><p>In this post I will explain how to setup <a href="https://github.com/seleniumHQ/selenium">Selenium WebDriver</a> to run in IE on a Mac using Vagrant and Virtual Box. This can be useful in a number of cases like running browser automation tests for IE on your Mac. In my case, I’m writing a script to help my wife automate some of her daily tasks at work. This <a href="https://coffeespoonsofcode.com/2014/12/09/how-to-set-up-selenium-grid-to-test-internet-explorer-from-a-mac-or-linux-computer/">post</a> was super helpful and I borrowed a lot of content from it.</p>
+<p>The overall setup looks like this:</p>
+<ul>
+<li>Prerequisites
+<ul>
+<li>Java</li>
+<li><a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a></li>
+<li><a href="https://www.vagrantup.com/">Vagrant</a></li>
+</ul>
+</li>
+<li>Tools
+<ul>
+<li>Selenium and <a href="http://www.seleniumhq.org/docs/07_selenium_grid.jsp">Selenium-Grid</a></li>
+</ul>
+</li>
+<li>Your Mac will run a Selenium-Grid <strong>hub</strong>, which is a tool for running tests on multiple machines in parallel.</li>
+<li>The Windows VM on your Mac will run a Selenium <strong>node</strong> that hooks up to the hub.</li>
+</ul>
+<p>The steps to getting this up and running is as follows:</p>
+<ol>
+<li>
+<p>Setup a Windows VM with IE on your Mac. <a href="https://gist.github.com/hiasinho/3b76ff6a7b102d589caf">Here</a> are a bunch of vagrant boxes that have Windows and IE installed. Just follow the directions in the <a href="https://gist.github.com/hiasinho/3b76ff6a7b102d589caf">README</a> to download and install the box. When the box is up and running, it will be available in VirtualBox. I went with Windows 7 and IE 10.<br><br><img src="http://i.imgur.com/Qrkgsmt.png" alt="Imgur"></p>
+</li>
+<li>
+<p>Once the VM is up, you’ll have to make sure that the VM can ping your Mac. This is important because it allows the node, the VM, to connect to the hub, your Mac. To do this, change the value of <strong>Attached To:</strong> in the <strong>Network</strong> setting to <strong>Bridged Adapter</strong>. You may have to restart the VM if it’s already running.<br><br><img src="http://i.imgur.com/jQocTSc.png" alt="Imgur"><br><br>Once done, you can test that it’s working by pinging your Mac from the VM. To do this, run <code>ping &lt;your Mac's IP address&gt;</code> from the Command Prompt.<br><br><img src="http://i.imgur.com/JIn96fm.png" alt="Imgur"></p>
+</li>
+<li>
+<p>Install Java on the Windows VM.</p>
+</li>
+<li>
+<p>Download the Selenium-Grid jar to the Windows VM <strong>and</strong> your Mac from <a href="http://selenium-release.storage.googleapis.com/index.html">here</a>. Pick a suitable version (I just went with the highest) and download the file <code>selenium-server-standalone-&lt;version&gt;.jar</code></p>
+</li>
+<li>
+<p>Download the IE driver to the Windows VM from the same folder as the Selenium-Grid jar you downloaded in the last step. The file is called <code>IEDriverServer_Win32_&lt;version&gt;.zip</code>. Unzip the folder and place the <code>.exe</code> file in <code>C:\\Windows\</code> or a directory that’s in the Windows <code>PATH</code>.<br><br>Now everything is all setup and ready to go!</p>
+</li>
+</ol>
+<p>Now you’ll need to start the hub and node. To start the hub, on your Mac where you placed the selenium-grid jar file from step 6, run the following command:</p>
+<pre><code class="language-bash">$ java -jar selenium-server-standalone-&lt;version&gt;.jar -role hub
+</code></pre>
+<p>To start the node, on the Windows VM in the directory where you downloaded the Selenium-Grid file, run:</p>
+<pre><code class="language-bash">$ java -jar selenium-server-standalone-&lt;version&gt;.jar -role node -hub http://&lt;IP  address of your Mac&gt;:4444/grid/register
+</code></pre>
+<p>You should see that a new node has been registered in the output of the hub.</p>
+<p><img src="http://i.imgur.com/d4E1GpZ.png" alt="Imgur"></p>
+<p>Also, navigate to <code>localhost:4444/grid/console</code> and you should see an IE node in the console.</p>
+<p><img src="http://i.imgur.com/XV0uzSW.png" alt="Imgur"></p>
+<p>Now you should have a running Selenium hub with an IE node available to run your tests or scripts.</p>
+<p>As for the actual script, I went with <a href="https://github.com/SeleniumHQ/Selenium/wiki/WebDriverJs">WebDriverJs</a>. Here’s a sample setup of the file.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> webdriver = <span class="hljs-built_in">require</span>(<span class="hljs-string">'selenium-webdriver'</span>),
+    By = webdriver.By,
+    until = webdriver.until;
+
+<span class="hljs-keyword">var</span> driver = <span class="hljs-keyword">new</span> webdriver.Builder()
+    .forBrowser(<span class="hljs-string">'internet explorer'</span>)
+    .usingServer(<span class="hljs-string">'http://localhost:4444/wd/hub'</span>) <span class="hljs-comment">// use the hub that we created</span>
+    .build();
+
+driver.get(<span class="hljs-string">'http://www.google.com/ncr'</span>);
+driver.findElement(By.name(<span class="hljs-string">'q'</span>)).sendKeys(<span class="hljs-string">'webdriver'</span>);
+driver.findElement(By.name(<span class="hljs-string">'btnG'</span>)).click();
+driver.wait(until.titleIs(<span class="hljs-string">'webdriver - Google Search'</span>), <span class="hljs-number">1000</span>);
+driver.quit();
+</code></pre>
+<p>Hope you found this helpful! If you have any questions, feedback, or have a different setup, I’d be interested to <a href="mailto:kprakobkit@gmail.com">hear</a> from you.</p>
+</div><em style="display:block;margin-bottom:3rem;">Posted October 4, 2016</em></div><span style="display:block;clear:both;"> </span></div></div></body></html>

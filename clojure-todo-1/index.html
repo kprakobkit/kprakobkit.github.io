@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+ <html lang="en"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=5.0"/><title>Clojure Todo - 1 of 2</title><style id="typography.js">/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+html {
+  box-sizing: border-box;
+  font-size: 112.5%;
+  line-height: 1.5em;
+  overflow-y: scroll;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: hsl(0,0%,20%);
+  font-family: georgia, serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+/* Make image responsive by default */
+img {
+  max-width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6,hgroup,ul,ol,dl,dd,p,figure,pre,table,fieldset,blockquote,form,noscript,iframe,img,hr {
+margin: 0;
+margin-bottom: 1.5rem;
+padding: 0;
+}
+
+blockquote {
+margin: 1.5rem 3.75rem;
+}
+
+b,strong {
+font-weight: 700
+}
+
+hr {
+background: hsl(0,0%,80%);
+border: none;
+height: 1px;
+margin-bottom: calc(1.5rem - 1px);
+}
+
+ol,ul {
+list-style-position: outside;
+margin-left: 1.5rem;
+}
+
+ul li,ol li {
+padding-left: 0;
+}
+
+code,kbd,pre,samp {
+font-size: 0.85rem;
+line-height: 1.5rem;
+}
+
+table {
+font-size: 1rem;
+line-height: 2.25rem;
+width: 100%;
+}
+
+thead {
+text-align: left;
+}
+
+h1,h2,h3,h4,h5,h6 {
+color: hsl(0,0%,20%);
+font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+font-weight: 700;
+}
+
+h1 {
+font-size: 1.728rem;
+line-height: 2.25rem;
+}
+
+h2 {
+font-size: 1.44rem;
+line-height: 2.25rem;
+}
+
+h3 {
+font-size: 1.2rem;
+line-height: 1.5rem;
+}
+
+h4 {
+font-size: 1.12924rem;
+line-height: 1.5rem;
+}
+
+h5 {
+font-size: 1.06266rem;
+line-height: 1.5rem;
+}
+
+h6 {
+font-size: 1rem;
+line-height: 1.5rem;
+}
+
+
+</style><style>body{color:#424242}h1,h2,h3,h4,h5,h6{color:#2c2c2c}a{color:#2a5dad;text-decoration:none}a:hover{text-decoration:underline}blockquote{padding-left:16.875px;border-left:6px solid #d3d3d3;margin-left:10.875px;margin-right:0;padding-right:0}.markdown pre{display:block;background:#3f3f3f;color:#dcdcdc;overflow-y:hidden}.markdown pre code{background:none;border:none;border-radius:3px;display:inline-block;overflow:inherit;padding:1.58333rem;white-space:inherit;word-wrap:normal}code{border-radius:3px;white-space:pre;white-space:pre-wrap;white-space:pre-line;white-space:-pre-wrap;white-space:-o-pre-wrap;white-space:-moz-pre-wrap;white-space:-hp-pre-wrap;word-wrap:break-word;background:#e5e5e5;border:1px solid #ccc;display:inline;font-family:Inconsolata,monospace,serif;max-width:100%;overflow:auto;padding:0 .1625rem}.clojure .hljs-attribute,.css .hljs-class,.css .hljs-id,.hljs-keyword,.hljs-request,.hljs-status,.hljs-tag,.lisp .hljs-title,.nginx .hljs-title{color:#e3ceab}.django .hljs-filter .hljs-argument,.django .hljs-template_tag,.django .hljs-variable{color:#dcdcdc}.hljs-date,.hljs-number{color:#8cd0d3}.apache .hljs-sqbracket,.dos .hljs-envvar,.dos .hljs-stream,.hljs-variable{color:#efdcbc}.diff .hljs-change,.dos .hljs-flow,.hljs-literal,.python .exception,.python .hljs-built_in,.tex .hljs-special{color:#efefaf}.diff .hljs-chunk,.hljs-subst{color:#8f8f8f}.apache .hljs-tag,.diff .hljs-header,.dos .hljs-keyword,.haskell .hljs-type,.hljs-prompt,.hljs-title,.nginx .hljs-built_in,.python .hljs-decorator,.ruby .hljs-class .hljs-parent,.tex .hljs-command{color:#efef8f}.dos .hljs-winutils,.ruby .hljs-string,.ruby .hljs-symbol,.ruby .hljs-symbol .hljs-string{color:#dca3a3}.apache .hljs-cbracket,.coffeescript .hljs-attribute,.css .hljs-rules .hljs-value,.diff .hljs-deletion,.hljs-attr_selector,.hljs-built_in,.hljs-javadoc,.hljs-pragma,.hljs-preprocessor,.hljs-pseudo,.hljs-string,.hljs-tag .hljs-value,.smalltalk .hljs-array,.smalltalk .hljs-class,.smalltalk .hljs-localvars,.sql .hljs-aggregate,.tex .hljs-formula{color:#cc9393}.diff .hljs-addition,.hljs-comment,.hljs-doctype,.hljs-pi,.hljs-shebang,.hljs-template_comment,.java .hljs-annotation{color:#7f9f7f}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .css,.xml .hljs-cdata,.xml .javascript,.xml .vbscript{opacity:.5}</style></head><body class="landing-page"><div id="react-mount"><div style="max-width:60rem;margin-left:auto;margin-right:auto;padding:3rem 0.75rem;"><h3><a style="text-decoration:none;color:inherit;" href="/">Peter Prakobkit</a></h3><div class="markdown"><h1>Clojure Todo - 1 of 2</h1><div><p>This is the first of a two part walkthrough of my Clojure Todo App.</p>
+<p>Over the last few months, I’ve been working on creating a full stack todo app using the Clojure stack - ClojureScript, Clojure, and Postgres. I also explored multiple options for hosting this app, which I will write about in a separate blog post. It’s been a great learning experiencing building and deploying the app from scratch. I’m documenting the experience here to solidify my learning, as well as pay it forward.</p>
+<p>This blog post is divided into sections that correspond to each part of the stack (front-end, server, database). Let’s first start at the meat of this, which is the server and the database, written in Clojure.</p>
+<p>Note: The source code is available <a href="https://github.com/kprakobkit/todo-clj">here</a>.</p>
+<h2>The Server</h2>
+<p>The server is responsible for handling incoming http requests and interacting with the database, through a model, which I’ll cover shortly. I’m using <a href="https://github.com/ring-clojure/ring">Ring</a> and <a href="https://github.com/weavejester/compojure">Compojure</a>, which seems to be the standard for the Clojure stack. Ring is an abstraction over the HTTP server and is comparable to Ruby’s Rack. Compojure is the routing library for Ring.</p>
+<p>The meat of the server is in the main function where we call <code>run-jetty</code> passing in the http-handler.</p>
+<pre><code class="language-clojure">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> -main [&amp; [port]]
+  (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [port (<span class="hljs-name">Integer.</span> (<span class="hljs-name"><span class="hljs-builtin-name">or</span></span> port (<span class="hljs-name">env</span> <span class="hljs-symbol">:port</span>) <span class="hljs-number">10555</span>))]
+    (<span class="hljs-name">run-jetty</span> http-handler {<span class="hljs-symbol">:port</span> port <span class="hljs-symbol">:join?</span> <span class="hljs-literal">false</span>})))
+</code></pre>
+<p>The http-handler is a composition of middleware wrappers, Ring or custom, and the routes. This is pretty cool. You can add additional Ring middleware like wrap-with-logger or wrap-son-response, or custom wrappers like wrap-response-url-body. I like this style a lot because it makes it very explicit what middleware is being used to handle the request or response.</p>
+<pre><code class="language-clojure">(<span class="hljs-name"><span class="hljs-builtin-name">def</span></span> http-handler
+  (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> routes
+      (<span class="hljs-name">wrap-defaults</span> api-defaults)
+      wrap-response-url-body
+      wrap-json-response
+      (<span class="hljs-name">wrap-cors</span> <span class="hljs-symbol">:access-control-allow-origin</span> [#<span class="hljs-string">".*"</span>]
+                 <span class="hljs-symbol">:access-control-allow-methods</span> [<span class="hljs-symbol">:get</span> <span class="hljs-symbol">:put</span> <span class="hljs-symbol">:post</span> <span class="hljs-symbol">:delete</span> <span class="hljs-symbol">:patch</span>])
+      (<span class="hljs-name">wrap-json-body</span> {<span class="hljs-symbol">:keywords?</span> <span class="hljs-literal">true</span>})
+      wrap-with-logger
+      wrap-gzip))
+</code></pre>
+<p>Now let’s take a look at the routes. Compojure’s defroutes function is responsible for creating all the route handlers and looks fairly straight forward. In this implementation, each route interacts with a different method on the model - create, all, find-by-id, delete-all, etc.</p>
+<p>As a side note, I followed the <a href="http://www.todobackend.com/">todo-backend spec</a> when I was creating this portion of the todo app. The site is awesome and even has a test suite that you can run against.</p>
+<pre><code class="language-clojure">(<span class="hljs-name">defroutes</span> routes
+  (<span class="hljs-name">GET</span> <span class="hljs-string">"/"</span> _
+    {<span class="hljs-symbol">:status</span> <span class="hljs-number">200</span>
+     <span class="hljs-symbol">:headers</span> {<span class="hljs-string">"Content-Type"</span> <span class="hljs-string">"text/html; charset=utf-8"</span>}
+     <span class="hljs-symbol">:body</span> (<span class="hljs-name">io/input-stream</span> (<span class="hljs-name">io/resource</span> <span class="hljs-string">"public/index.html"</span>))})
+  (<span class="hljs-name">resources</span> <span class="hljs-string">"/"</span>)
+  (<span class="hljs-name">GET</span> <span class="hljs-string">"/todos"</span> _
+    (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> (<span class="hljs-name">todos/all</span>)
+        res-ok))
+  (<span class="hljs-name">GET</span> <span class="hljs-string">"/todos/:id"</span> {{id <span class="hljs-symbol">:id</span>} <span class="hljs-symbol">:params</span>}
+    (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> id
+        todos/find-by-id
+        res-ok))
+  (<span class="hljs-name">POST</span> <span class="hljs-string">"/todos"</span> {body <span class="hljs-symbol">:body</span>}
+    (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> body
+        todos/create
+        res-created))
+  (<span class="hljs-name">PATCH</span> <span class="hljs-string">"/todos/:id"</span> {{id <span class="hljs-symbol">:id</span> <span class="hljs-symbol">:as</span> params} <span class="hljs-symbol">:params</span> body <span class="hljs-symbol">:body</span>}
+    (<span class="hljs-name"><span class="hljs-builtin-name">-&gt;</span></span> id
+        (<span class="hljs-name">#</span>(<span class="hljs-name">todos/update-todo</span> % body))
+        res-ok))
+  (<span class="hljs-name">DELETE</span> <span class="hljs-string">"/todos"</span> _
+    (<span class="hljs-name">todos/delete-all</span>)
+    (<span class="hljs-name">res-no-content</span>))
+  (<span class="hljs-name">DELETE</span> <span class="hljs-string">"/todos/:id"</span> {{id <span class="hljs-symbol">:id</span>} <span class="hljs-symbol">:params</span>}
+    (<span class="hljs-name">todos/delete</span> id)
+    (<span class="hljs-name">res-no-content</span>)))
+</code></pre>
+<p>That concludes the server, let’s now look at the model.</p>
+<h2>The Model</h2>
+<p>The model here is simply an abstraction on top of the data persistent layer, which is PostgreSQL. It’s interface includes <code>create, all, find-by-id, delete-all, delete, and update-todo</code>. I’m using clojure.java.jdbc, which is just a Clojure wrapper for JDBC-based access to the database.</p>
+<pre><code class="language-clojure">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> all []
+  (<span class="hljs-name"><span class="hljs-builtin-name">vec</span></span> (<span class="hljs-name">sql/query</span> spec [<span class="hljs-string">"select * from todos"</span>] {<span class="hljs-symbol">:row-fn</span> parse})))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> create [todo]
+  (<span class="hljs-name">parse</span> (<span class="hljs-name"><span class="hljs-builtin-name">first</span></span> (<span class="hljs-name">sql/insert!</span> spec <span class="hljs-symbol">:todos</span> (<span class="hljs-name">order-to-position</span> todo)))))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> find-by-id [id]
+  (<span class="hljs-name"><span class="hljs-builtin-name">first</span></span> (<span class="hljs-name">sql/query</span> spec [<span class="hljs-string">"select * from todos where id = ?::integer"</span> id] {<span class="hljs-symbol">:row-fn</span> parse})))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> update-todo [id todo]
+  (<span class="hljs-name">sql/update!</span> spec <span class="hljs-symbol">:todos</span> (<span class="hljs-name">order-to-position</span> todo) [<span class="hljs-string">"id = ?::integer"</span> id])
+  (<span class="hljs-name">find-by-id</span> id))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> delete [id]
+  (<span class="hljs-name">sql/delete!</span> spec <span class="hljs-symbol">:todos</span> [<span class="hljs-string">"id = ?::integer"</span> id]))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> delete-all []
+  (<span class="hljs-name">sql/delete!</span> spec <span class="hljs-symbol">:todos</span> []))
+</code></pre>
+<p>I also wrote some helpers for setting up and populating the database in migration.clj - <code>migrate, drop-db, and populate</code>. They can be executed as Leiningen commands, which I’ve setup via aliases in project.clj.</p>
+<pre><code class="language-clojure">  <span class="hljs-symbol">:aliases</span> {<span class="hljs-string">"migrate"</span> [<span class="hljs-string">"run"</span> <span class="hljs-string">"-m"</span> <span class="hljs-string">"todo-clj.models.migration/migrate"</span>]
+            <span class="hljs-string">"populate"</span> [<span class="hljs-string">"run"</span> <span class="hljs-string">"-m"</span> <span class="hljs-string">"todo-clj.models.migration/populate"</span>]
+            <span class="hljs-string">"drop-db"</span> [<span class="hljs-string">"run"</span> <span class="hljs-string">"-m"</span> <span class="hljs-string">"todo-clj.models.migration/drop-db"</span>]}
+</code></pre>
+<p>That completes a tour of the back-end portion of this app. I will cover the front-end, ClojureScript portion of this app in the next blog post.</p>
+</div><em style="display:block;margin-bottom:3rem;">Posted August 1, 2016</em></div><span style="display:block;clear:both;"> </span></div></div></body></html>

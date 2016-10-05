@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+ <html lang="en"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=5.0"/><title>Simple Pipeline Setup from Scratch</title><style id="typography.js">/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+html {
+  box-sizing: border-box;
+  font-size: 112.5%;
+  line-height: 1.5em;
+  overflow-y: scroll;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: hsl(0,0%,20%);
+  font-family: georgia, serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+/* Make image responsive by default */
+img {
+  max-width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6,hgroup,ul,ol,dl,dd,p,figure,pre,table,fieldset,blockquote,form,noscript,iframe,img,hr {
+margin: 0;
+margin-bottom: 1.5rem;
+padding: 0;
+}
+
+blockquote {
+margin: 1.5rem 3.75rem;
+}
+
+b,strong {
+font-weight: 700
+}
+
+hr {
+background: hsl(0,0%,80%);
+border: none;
+height: 1px;
+margin-bottom: calc(1.5rem - 1px);
+}
+
+ol,ul {
+list-style-position: outside;
+margin-left: 1.5rem;
+}
+
+ul li,ol li {
+padding-left: 0;
+}
+
+code,kbd,pre,samp {
+font-size: 0.85rem;
+line-height: 1.5rem;
+}
+
+table {
+font-size: 1rem;
+line-height: 2.25rem;
+width: 100%;
+}
+
+thead {
+text-align: left;
+}
+
+h1,h2,h3,h4,h5,h6 {
+color: hsl(0,0%,20%);
+font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+font-weight: 700;
+}
+
+h1 {
+font-size: 1.728rem;
+line-height: 2.25rem;
+}
+
+h2 {
+font-size: 1.44rem;
+line-height: 2.25rem;
+}
+
+h3 {
+font-size: 1.2rem;
+line-height: 1.5rem;
+}
+
+h4 {
+font-size: 1.12924rem;
+line-height: 1.5rem;
+}
+
+h5 {
+font-size: 1.06266rem;
+line-height: 1.5rem;
+}
+
+h6 {
+font-size: 1rem;
+line-height: 1.5rem;
+}
+
+
+</style><style>body{color:#424242}h1,h2,h3,h4,h5,h6{color:#2c2c2c}a{color:#2a5dad;text-decoration:none}a:hover{text-decoration:underline}blockquote{padding-left:16.875px;border-left:6px solid #d3d3d3;margin-left:10.875px;margin-right:0;padding-right:0}.markdown pre{display:block;background:#3f3f3f;color:#dcdcdc;overflow-y:hidden}.markdown pre code{background:none;border:none;border-radius:3px;display:inline-block;overflow:inherit;padding:1.58333rem;white-space:inherit;word-wrap:normal}code{border-radius:3px;white-space:pre;white-space:pre-wrap;white-space:pre-line;white-space:-pre-wrap;white-space:-o-pre-wrap;white-space:-moz-pre-wrap;white-space:-hp-pre-wrap;word-wrap:break-word;background:#e5e5e5;border:1px solid #ccc;display:inline;font-family:Inconsolata,monospace,serif;max-width:100%;overflow:auto;padding:0 .1625rem}.clojure .hljs-attribute,.css .hljs-class,.css .hljs-id,.hljs-keyword,.hljs-request,.hljs-status,.hljs-tag,.lisp .hljs-title,.nginx .hljs-title{color:#e3ceab}.django .hljs-filter .hljs-argument,.django .hljs-template_tag,.django .hljs-variable{color:#dcdcdc}.hljs-date,.hljs-number{color:#8cd0d3}.apache .hljs-sqbracket,.dos .hljs-envvar,.dos .hljs-stream,.hljs-variable{color:#efdcbc}.diff .hljs-change,.dos .hljs-flow,.hljs-literal,.python .exception,.python .hljs-built_in,.tex .hljs-special{color:#efefaf}.diff .hljs-chunk,.hljs-subst{color:#8f8f8f}.apache .hljs-tag,.diff .hljs-header,.dos .hljs-keyword,.haskell .hljs-type,.hljs-prompt,.hljs-title,.nginx .hljs-built_in,.python .hljs-decorator,.ruby .hljs-class .hljs-parent,.tex .hljs-command{color:#efef8f}.dos .hljs-winutils,.ruby .hljs-string,.ruby .hljs-symbol,.ruby .hljs-symbol .hljs-string{color:#dca3a3}.apache .hljs-cbracket,.coffeescript .hljs-attribute,.css .hljs-rules .hljs-value,.diff .hljs-deletion,.hljs-attr_selector,.hljs-built_in,.hljs-javadoc,.hljs-pragma,.hljs-preprocessor,.hljs-pseudo,.hljs-string,.hljs-tag .hljs-value,.smalltalk .hljs-array,.smalltalk .hljs-class,.smalltalk .hljs-localvars,.sql .hljs-aggregate,.tex .hljs-formula{color:#cc9393}.diff .hljs-addition,.hljs-comment,.hljs-doctype,.hljs-pi,.hljs-shebang,.hljs-template_comment,.java .hljs-annotation{color:#7f9f7f}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .css,.xml .hljs-cdata,.xml .javascript,.xml .vbscript{opacity:.5}</style></head><body class="landing-page"><div id="react-mount"><div style="max-width:60rem;margin-left:auto;margin-right:auto;padding:3rem 0.75rem;"><h3><a style="text-decoration:none;color:inherit;" href="/">Peter Prakobkit</a></h3><div class="markdown"><h1>Simple Pipeline Setup from Scratch</h1><div><p>Tools like Heroku, Docker, or Vagrant do an excellent job of abstracting the tasks of setting up an environment for deployment that I never really understood what exactly is involved. Because I’m a big fan of redoing things from scratch for the purpose of learning how it works, I tried manually setting up an environment from scratch. My goal was to, in the end, have a CI environment. I was able to push my changes locally, have it trigger a build on <a href="https://snap-ci.com/">Snap CI</a>, and deploy that code onto the CI environment for my Clojure todo app. This was a daunting task for me at first because I had NO IDEA what I was doing, but at the end I found out that it actually wasn’t that complicated. Overall, it was a great learning experience and I highly recommend doing the same to any beginners out there. In this blog post, I will be walking through the high-level steps and some learnings along the way.</p>
+<h2>The Environment</h2>
+<p>First was deciding a hosting solution for the CI environment. I went with <a href="https://www.digitalocean.com/">DigitalOcean</a> because someone had recommended it to me, and it was the simplest to setup. It even has a great <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-clojure-web-application-on-ubuntu-14-04">tutorial</a> for deploying Clojure apps, which I used.</p>
+<p>Setting up on DigitalOcean was as simple as clicking a button (to create a droplet). Once that’s done, I had to ssh into the machine and setup a non-root user because using a root user is a no n; you can really mess things up. Again DigitalOcean has a great <a href="https://www.digitalocean.com/community/tutorials/how-to-deploy-a-clojure-web-application-on-ubuntu-14-04">tutorial</a> on getting this setup. It essentially boils down to:</p>
+<ol>
+<li>Add a user</li>
+<li>Set this user up with root privileges - this allows the user to run commands with administrative privileges using <code>sudo</code></li>
+<li>Add a public key to the machine so you can easily ssh into the machine without having to use a password. To read up more on how this works, go <a href="https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server">here</a>.</li>
+<li>Disable remote ssh as root</li>
+</ol>
+<p>I had to run a bunch of commands I had never seen before, but that’s essentially what the commands are doing.</p>
+<p>After setting up the user, now it’s time to setup the environment. First I installed git, and cloned my Clojure todo app repository. Then I installed Java and Leiningen. Pretty straight forward, right?</p>
+<p>Now comes the interesting part - setting up the app so that it can be accessed from the outside world. The high-level architecture of this is an Nginx running as a proxy server and Supervisor. This is by no means production ready, and is only one of MANY options available for setting up the environment. This setup was recommended by DigitalOcean so I just went it with. Nginx is responsible for routing external traffic to the app - it’s proxying requests to port 80 to whatever port our clojure app is listening to. For the todo app, it’ss 10555. Supervisor is used to run a combination of starting/stopping the server and writing to log files.</p>
+<p>Lastly, I installed PostgreSQL, and again, thank you DigitialOcean for their wonder tutorials, I followed the steps <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04">here</a>. I ran into a permissions issue on PostgreSQL and documented it <a href="/postgresql-permissions/">here</a> a while back.</p>
+<p>Now that we have the environment all setup, next is the pipeline.</p>
+<h2>The Pipeline</h2>
+<p>I came up with a very simple pipeline using <a href="https://snap-ci.com/">Snap CI</a> and what I thought made sense - I didn’t follow any tutorials. This is the workflow:</p>
+<ol>
+<li>Push to Github and add webhook on github to trigger a build on Snap CI</li>
+<li>Snap CI runs a build</li>
+<li>Snap CI pushes to DigitalOcean instance after a successful build</li>
+</ol>
+<p>I wrote a basic deploy script on DigitalOcean instance that Snap CI executes after a succssful build (use Snap CI to ssh into DigitalOcean and run the script).</p>
+<pre><code class="language-bash"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">set</span> <span class="hljs-_">-e</span>
+
+<span class="hljs-built_in">cd</span> ~/todo-clj
+
+git pull --rebase
+
+lein uberjar
+
+sudo cp ~/todo-clj/target/todo-clj.jar /var/www/todo-clj/app/
+
+sudo service supervisor restart
+
+sleep 5s
+
+sudo service nginx restart
+</code></pre>
+<p>That’s it! At first I didn’t know what to expect, but in the end, it’s not all that hard.</p>
+</div><em style="display:block;margin-bottom:3rem;">Posted August 20, 2016</em></div><span style="display:block;clear:both;"> </span></div></div></body></html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+ <html lang="en"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=5.0"/><title>Clojure Todo - 2 of 2</title><style id="typography.js">/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+html {
+  box-sizing: border-box;
+  font-size: 112.5%;
+  line-height: 1.5em;
+  overflow-y: scroll;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: hsl(0,0%,20%);
+  font-family: georgia, serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+/* Make image responsive by default */
+img {
+  max-width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6,hgroup,ul,ol,dl,dd,p,figure,pre,table,fieldset,blockquote,form,noscript,iframe,img,hr {
+margin: 0;
+margin-bottom: 1.5rem;
+padding: 0;
+}
+
+blockquote {
+margin: 1.5rem 3.75rem;
+}
+
+b,strong {
+font-weight: 700
+}
+
+hr {
+background: hsl(0,0%,80%);
+border: none;
+height: 1px;
+margin-bottom: calc(1.5rem - 1px);
+}
+
+ol,ul {
+list-style-position: outside;
+margin-left: 1.5rem;
+}
+
+ul li,ol li {
+padding-left: 0;
+}
+
+code,kbd,pre,samp {
+font-size: 0.85rem;
+line-height: 1.5rem;
+}
+
+table {
+font-size: 1rem;
+line-height: 2.25rem;
+width: 100%;
+}
+
+thead {
+text-align: left;
+}
+
+h1,h2,h3,h4,h5,h6 {
+color: hsl(0,0%,20%);
+font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+font-weight: 700;
+}
+
+h1 {
+font-size: 1.728rem;
+line-height: 2.25rem;
+}
+
+h2 {
+font-size: 1.44rem;
+line-height: 2.25rem;
+}
+
+h3 {
+font-size: 1.2rem;
+line-height: 1.5rem;
+}
+
+h4 {
+font-size: 1.12924rem;
+line-height: 1.5rem;
+}
+
+h5 {
+font-size: 1.06266rem;
+line-height: 1.5rem;
+}
+
+h6 {
+font-size: 1rem;
+line-height: 1.5rem;
+}
+
+
+</style><style>body{color:#424242}h1,h2,h3,h4,h5,h6{color:#2c2c2c}a{color:#2a5dad;text-decoration:none}a:hover{text-decoration:underline}blockquote{padding-left:16.875px;border-left:6px solid #d3d3d3;margin-left:10.875px;margin-right:0;padding-right:0}.markdown pre{display:block;background:#3f3f3f;color:#dcdcdc;overflow-y:hidden}.markdown pre code{background:none;border:none;border-radius:3px;display:inline-block;overflow:inherit;padding:1.58333rem;white-space:inherit;word-wrap:normal}code{border-radius:3px;white-space:pre;white-space:pre-wrap;white-space:pre-line;white-space:-pre-wrap;white-space:-o-pre-wrap;white-space:-moz-pre-wrap;white-space:-hp-pre-wrap;word-wrap:break-word;background:#e5e5e5;border:1px solid #ccc;display:inline;font-family:Inconsolata,monospace,serif;max-width:100%;overflow:auto;padding:0 .1625rem}.clojure .hljs-attribute,.css .hljs-class,.css .hljs-id,.hljs-keyword,.hljs-request,.hljs-status,.hljs-tag,.lisp .hljs-title,.nginx .hljs-title{color:#e3ceab}.django .hljs-filter .hljs-argument,.django .hljs-template_tag,.django .hljs-variable{color:#dcdcdc}.hljs-date,.hljs-number{color:#8cd0d3}.apache .hljs-sqbracket,.dos .hljs-envvar,.dos .hljs-stream,.hljs-variable{color:#efdcbc}.diff .hljs-change,.dos .hljs-flow,.hljs-literal,.python .exception,.python .hljs-built_in,.tex .hljs-special{color:#efefaf}.diff .hljs-chunk,.hljs-subst{color:#8f8f8f}.apache .hljs-tag,.diff .hljs-header,.dos .hljs-keyword,.haskell .hljs-type,.hljs-prompt,.hljs-title,.nginx .hljs-built_in,.python .hljs-decorator,.ruby .hljs-class .hljs-parent,.tex .hljs-command{color:#efef8f}.dos .hljs-winutils,.ruby .hljs-string,.ruby .hljs-symbol,.ruby .hljs-symbol .hljs-string{color:#dca3a3}.apache .hljs-cbracket,.coffeescript .hljs-attribute,.css .hljs-rules .hljs-value,.diff .hljs-deletion,.hljs-attr_selector,.hljs-built_in,.hljs-javadoc,.hljs-pragma,.hljs-preprocessor,.hljs-pseudo,.hljs-string,.hljs-tag .hljs-value,.smalltalk .hljs-array,.smalltalk .hljs-class,.smalltalk .hljs-localvars,.sql .hljs-aggregate,.tex .hljs-formula{color:#cc9393}.diff .hljs-addition,.hljs-comment,.hljs-doctype,.hljs-pi,.hljs-shebang,.hljs-template_comment,.java .hljs-annotation{color:#7f9f7f}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .css,.xml .hljs-cdata,.xml .javascript,.xml .vbscript{opacity:.5}</style></head><body class="landing-page"><div id="react-mount"><div style="max-width:60rem;margin-left:auto;margin-right:auto;padding:3rem 0.75rem;"><h3><a style="text-decoration:none;color:inherit;" href="/">Peter Prakobkit</a></h3><div class="markdown"><h1>Clojure Todo - 2 of 2</h1><div><p>This is the second part of a two-part walkthrough of a todo app that I build in Clojure. The first part covers the backend portion of the app - server and database. I will be covering the front-end, ClojureScript, portion of the app. Let’s get started!</p>
+<p>Note: The source code is available <a href="https://github.com/kprakobkit/todo-clj">here</a>.</p>
+<p>I’m using <a href="https://github.com/omcljs/om">Om</a>, which is a ClojureScript interface to Facebook’s React. It’s written by David Nolen, and it’s awesome. An alternative to this is <a href="https://reagent-project.github.io/">Reagent</a>. David Nolen has written some very good documentation around this library as well, and most of what you’ll see here is taken from his <a href="https://github.com/omcljs/om/wiki">tutorials</a>.</p>
+<p>The front-end portion is essentially a separate client-side app that interacts with a todo-api, which is the server. The entry point is in core.cljs, where the intial app state and the main app component are defined.</p>
+<pre><code class="language-clojure">(<span class="hljs-name"><span class="hljs-builtin-name">defonce</span></span> app-state (<span class="hljs-name"><span class="hljs-builtin-name">atom</span></span> {<span class="hljs-symbol">:todos</span> []}))
+
+(<span class="hljs-name">om/root</span>
+ app/app
+ app-state
+ {<span class="hljs-symbol">:target</span> (<span class="hljs-name">js/document.getElementById</span> <span class="hljs-string">"app"</span>)})
+</code></pre>
+<p>The app state is very simple; it’s just an atom with an empty list of todos. The app component’s <code>will-mount</code> function is where we will first get all the todos and populate the app state.</p>
+<pre><code class="language-clojure">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> app [app owner]
+  (<span class="hljs-name"><span class="hljs-builtin-name">reify</span></span>
+    om/IInitState
+    (<span class="hljs-name">init-state</span> [_]
+      {<span class="hljs-symbol">:delete</span> (<span class="hljs-name">chan</span>)
+       <span class="hljs-symbol">:update</span> (<span class="hljs-name">chan</span>)
+       <span class="hljs-symbol">:title</span> <span class="hljs-string">""</span>})
+    om/IWillMount
+    (<span class="hljs-name">will-mount</span> [_]
+      (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [delete (<span class="hljs-name">om/get-state</span> owner <span class="hljs-symbol">:delete</span>)
+            update (<span class="hljs-name">om/get-state</span> owner <span class="hljs-symbol">:update</span>)]
+        (<span class="hljs-name">get-todos</span> app)
+        (<span class="hljs-name">go</span> (<span class="hljs-name"><span class="hljs-builtin-name">loop</span></span> []
+              (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [[todo chan] (<span class="hljs-name">alts!</span> [delete update])]
+                (<span class="hljs-name"><span class="hljs-builtin-name">condp</span></span> = chan
+                  delete (<span class="hljs-name">remove-todo!</span> app todo)
+                  update (<span class="hljs-name">add-todo!</span> app todo))
+                (<span class="hljs-name"><span class="hljs-builtin-name">recur</span></span>))))))
+    om/IRenderState
+    (<span class="hljs-name">render-state</span> [this {<span class="hljs-symbol">:keys</span> [delete title update]}]
+      (<span class="hljs-name">dom/div</span> <span class="hljs-literal">nil</span>
+        (<span class="hljs-name">dom/h1</span> <span class="hljs-literal">nil</span> <span class="hljs-string">"My Todo"</span>)
+        (<span class="hljs-name">dom/input</span> #js {<span class="hljs-symbol">:ref</span> <span class="hljs-string">"new-todo"</span>
+                        <span class="hljs-symbol">:type</span> <span class="hljs-string">"text"</span>
+                        <span class="hljs-symbol">:placeholder</span> <span class="hljs-string">"What needs to be done?"</span>
+                        <span class="hljs-symbol">:value</span> title
+                        <span class="hljs-symbol">:onChange</span> #(<span class="hljs-name">handle-change</span> % owner)
+                        <span class="hljs-symbol">:onKeyPress</span> #(<span class="hljs-name">handle-key-press</span> % app owner)} <span class="hljs-literal">nil</span>)
+        (<span class="hljs-name"><span class="hljs-builtin-name">apply</span></span> dom/ul <span class="hljs-literal">nil</span>
+          (<span class="hljs-name"><span class="hljs-builtin-name">map</span></span>
+           (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [todo]
+             (<span class="hljs-name">om/build</span> todo-view todo
+                       {<span class="hljs-symbol">:react-key</span> (<span class="hljs-symbol">:id</span> todo)
+                        <span class="hljs-symbol">:init-state</span> {<span class="hljs-symbol">:delete</span> delete
+                                     <span class="hljs-symbol">:update</span> update}}))
+           (<span class="hljs-symbol">:todos</span> app)))))))
+</code></pre>
+<p>Also notice in <code>will-mount</code> that a go loop is established to listen for events on the <code>delete</code> and <code>update</code> channels. If you are not familiar with channels, checkout this <a href="https://github.com/omcljs/om/wiki/Basic-Tutorial">tutorial</a>. The channels themselves are initialized in the <code>init-state</code> function and are used as the means for intercomponent communication, i.e. a todo component can put a new title for a new todo on the update channel, which will get picked up by the go loop, creating the new todo. I’m still very new to this but what I’ve seen so far is very cool.</p>
+<p>The app component is also responsible for rendering a todo component for each todo in the list.</p>
+<pre><code class="language-clojure">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> todo-view [todo owner]
+  (<span class="hljs-name"><span class="hljs-builtin-name">reify</span></span>
+    om/IInitState
+    (<span class="hljs-name">init-state</span> [_]
+      {<span class="hljs-symbol">:editing</span> <span class="hljs-literal">false</span>})
+    om/IRenderState
+    (<span class="hljs-name">render-state</span> [_ {<span class="hljs-symbol">:keys</span> [delete update editing]}]
+      (<span class="hljs-name">dom/li</span> #js {<span class="hljs-symbol">:key</span> (<span class="hljs-name"><span class="hljs-builtin-name">str</span></span> (<span class="hljs-symbol">:id</span> todo) (<span class="hljs-name"><span class="hljs-builtin-name">rand</span></span>)) <span class="hljs-symbol">:className</span> <span class="hljs-string">"todo"</span>}
+              (<span class="hljs-name">dom/span</span> #js {<span class="hljs-symbol">:style</span> (<span class="hljs-name">display</span> (<span class="hljs-name"><span class="hljs-builtin-name">not</span></span> editing))
+                             <span class="hljs-symbol">:onDoubleClick</span> #(<span class="hljs-name">om/set-state!</span> owner <span class="hljs-symbol">:editing</span> <span class="hljs-literal">true</span>)}
+                        (<span class="hljs-symbol">:title</span> todo))
+              (<span class="hljs-name">dom/input</span> #js {<span class="hljs-symbol">:ref</span> <span class="hljs-string">"edit-todo"</span>
+                              <span class="hljs-symbol">:value</span> (<span class="hljs-symbol">:title</span> todo)
+                              <span class="hljs-symbol">:autoFocus</span> <span class="hljs-literal">true</span>
+                              <span class="hljs-symbol">:style</span> (<span class="hljs-name">display</span> editing)
+                              <span class="hljs-symbol">:onBlur</span> #(<span class="hljs-name">save-todo</span> todo owner)
+                              <span class="hljs-symbol">:onChange</span> #(<span class="hljs-name">handle-change</span> % todo)})
+              (<span class="hljs-name">dom/input</span> #js {<span class="hljs-symbol">:type</span> <span class="hljs-string">"checkbox"</span>
+                              <span class="hljs-symbol">:checked</span> (<span class="hljs-symbol">:completed</span> todo)
+                              <span class="hljs-symbol">:onClick</span> #(<span class="hljs-name">update-todo</span> todo {<span class="hljs-symbol">:completed</span> (<span class="hljs-name"><span class="hljs-builtin-name">not</span></span> (<span class="hljs-symbol">:completed</span> todo))} (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [updated-todo] (<span class="hljs-name">put!</span> update updated-todo)))})
+              (<span class="hljs-name">dom/button</span> #js {<span class="hljs-symbol">:className</span> <span class="hljs-string">"todo__remove"</span>
+                               <span class="hljs-symbol">:onClick</span> #(<span class="hljs-name">remove-todo</span> todo (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [_] (<span class="hljs-name">put!</span> delete @todo)))} <span class="hljs-string">"x"</span>)))))
+</code></pre>
+<p>Each todo is responsible for rendering the details for each todo. Also take note that each todo receives the update and delete channels. One interesting functionality in the todo-component is that double clicking on the title changes the text field (span) into an input field. This is controlled by the value of <code>:editing</code> in the component’s state. This is also very cool! The <code>onClick</code> handlers for the checkbox and delete buttons put values on the update and delete channels, respectively.</p>
+<p>I’ve also abstracted all the interactions with the api, our server, into the actions.cljs file.</p>
+<pre><code class="language-clojure">(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> get-todos [app]
+  (<span class="hljs-name">GET</span> <span class="hljs-string">"/todos"</span> {<span class="hljs-symbol">:handler</span> #(<span class="hljs-name">handler</span> % app)
+                 <span class="hljs-symbol">:keywords?</span> <span class="hljs-literal">true</span>
+                 <span class="hljs-symbol">:response-format</span> <span class="hljs-symbol">:json</span>}))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> remove-todo [todo handler]
+  (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [url (<span class="hljs-symbol">:url</span> todo)]
+    (<span class="hljs-name">DELETE</span> url {<span class="hljs-symbol">:handler</span> handler
+                 <span class="hljs-symbol">:error-handler</span> trace
+                 <span class="hljs-symbol">:format</span> <span class="hljs-symbol">:json</span>})))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> update-todo [todo updates handler]
+  (<span class="hljs-name">PATCH</span> (<span class="hljs-symbol">:url</span> todo) {<span class="hljs-symbol">:handler</span> handler
+                      <span class="hljs-symbol">:error-handler</span> trace
+                      <span class="hljs-symbol">:params</span> updates
+                      <span class="hljs-symbol">:format</span> <span class="hljs-symbol">:json</span>
+                      <span class="hljs-symbol">:response-format</span> <span class="hljs-symbol">:json</span>
+                      <span class="hljs-symbol">:keywords?</span> <span class="hljs-literal">true</span>}))
+
+(<span class="hljs-name"><span class="hljs-builtin-name">defn</span></span> add-todo [cursor owner]
+  (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [title (<span class="hljs-name">om/get-state</span> owner <span class="hljs-symbol">:title</span>)]
+    (<span class="hljs-name">POST</span> <span class="hljs-string">"/todos"</span> {<span class="hljs-symbol">:handler</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [res]
+                               (<span class="hljs-name">om/transact!</span> cursor <span class="hljs-symbol">:todos</span> (<span class="hljs-name"><span class="hljs-builtin-name">fn</span></span> [todos] (<span class="hljs-name"><span class="hljs-builtin-name">conj</span></span> todos res)))
+                               (<span class="hljs-name">om/set-state!</span> owner <span class="hljs-symbol">:title</span> <span class="hljs-string">""</span>))
+                    <span class="hljs-symbol">:error-handler</span> trace
+                    <span class="hljs-symbol">:params</span> {<span class="hljs-symbol">:title</span> title}
+                    <span class="hljs-symbol">:format</span> <span class="hljs-symbol">:json</span>
+                    <span class="hljs-symbol">:response-format</span> <span class="hljs-symbol">:json</span>
+                    <span class="hljs-symbol">:keywords?</span> <span class="hljs-literal">true</span>})))
+</code></pre>
+<p>Here, I’m using the <a href="https://github.com/JulianBirch/cljs-ajax">cljs-ajax library</a>, which is a neat wrapper for making ajax calls.</p>
+<p>That completes a tour of the front-end portion of this app. I will cover setting up a CI environment from scratch in the next blog post. Thanks for reading!</p>
+</div><em style="display:block;margin-bottom:3rem;">Posted August 10, 2016</em></div><span style="display:block;clear:both;"> </span></div></div></body></html>
