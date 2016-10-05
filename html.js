@@ -19,6 +19,12 @@ module.exports = React.createClass({
       css = <style dangerouslySetInnerHTML={{ __html: require('!raw!./public/styles.css') }} />
     }
 
+    let script
+    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV !== 'production') {
+      script = <script src={prefixLink(`/bundle.js?t=${BUILD_TIME}`)} />
+    }
+
     return (
       <html lang="en">
         <head>
@@ -34,7 +40,7 @@ module.exports = React.createClass({
         </head>
         <body className="landing-page">
           <div id="react-mount" dangerouslySetInnerHTML={{ __html: body }} />
-          <script src={prefixLink(`/bundle.js?t=${BUILD_TIME}`)} />
+          {script}
         </body>
       </html>
     )
