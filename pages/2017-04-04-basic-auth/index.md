@@ -8,7 +8,7 @@ publish: true
 
 Whenever I start a side project that requires some sort of user registration/login process I always find myself googling for hours on how to implement user authentication. This leads me to waste many hours looking through frameworks, most of which are always too much for what I need. All I need is a simple process for creating users and allowing them to login, and the process itself isn't complicated. To save myself for re-googling user authentication, I've managed to boil down the steps and components here so my future self can come back and use this as a resource. My goal of this is to have a language agnositc process of the components for implementing a simple user authentication. Nothing fancy here.
 
-Note that this method of authentication is called 'Session-based Authentication', as opposed to 'Token-based Authentication'. More on this [here](https://security.stackexchange.com/questions/81756/session-authentication-vs-token-authentication).
+Note that this method of authentication is called 'Session/Cookie-based Authentication', as opposed to 'Token-based Authentication'. More on this [here](https://security.stackexchange.com/questions/81756/session-authentication-vs-token-authentication) and [here](https://auth0.com/blog/cookies-vs-tokens-definitive-guide/).
 
 I'll start from what the user sees, then dive down to the routes and backend implementation to support this.
 
