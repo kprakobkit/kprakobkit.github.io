@@ -6,7 +6,7 @@ class Bio extends React.Component {
     return (
       <div>
       <p>
-        Hi there! My name's Peter and I'm a software developer working for <a href="https://www.thoughtworks.com" target="_blank">ThoughtWorks</a> in San Francisco.
+        Hi there! My name's Peter Prakobkit and I'm a software developer working for <a href="https://www.thoughtworks.com" target="_blank">ThoughtWorks</a> in San Francisco.
       </p>
       <p
       style={{
